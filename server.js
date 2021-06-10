@@ -24,16 +24,14 @@ client.connect().then((response) => {
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  rankings.find().toArray();
+app.get("/", async (req, res) => {
+  const ranks = await rankings.find().toArray();
+  res.json(ranks);
 });
 
-app.get("/top10", (req, res) => {
-  rankings
-    .find({})
-    .sort({ averageScore: -1 })
-    .limit(10)
-    .then((ranks) => res.json(ranks));
+app.get("/top10", async (req, res) => {
+  const ranks = await rankings.find().sort({ Score: -1 }).limit(10).toArray();
+  res.json(ranks);
 });
 
 app.post("/score", async (req, res) => {
