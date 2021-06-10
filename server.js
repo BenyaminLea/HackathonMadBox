@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 var cors = require("cors");
 
 require("dotenv").config();
@@ -25,6 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", async (req, res) => {
+  console.log("test");
   const ranks = await rankings.find().toArray();
   res.json(ranks);
 });
